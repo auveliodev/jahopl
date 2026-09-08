@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ja-ho.pl/sitemap.xml

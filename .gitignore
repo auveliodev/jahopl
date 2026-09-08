@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# Katalog img/ w korzeniu to dokładny duplikat www/assets/img — ten drugi jest
+# tym, co faktycznie serwujemy, więc trzymamy w repo tylko jego. Odtworzenie
+# źródła, gdyby było potrzebne:  cp -r www/assets/img/* img/
+/img/
+
+# Oryginał hero w pełnej rozdzielczości (4515x2112, ~15 MB). Do publikacji
+# wystarczą pochodne w www/assets/img/hero (webp + avif, do 2560 px), a git
+# kiepsko znosi takie bloby. Master zostaje lokalnie.
+/tlo.png
+
+# Śmieci systemowe
+.DS_Store
+Thumbs.db
+*~
