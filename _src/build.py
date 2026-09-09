@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """Generator strony JA-HO.
 
-Zapisuje pięć statycznych podstron do ../www/. Szablony (nagłówek, stopka,
+Zapisuje pięć statycznych podstron do korzenia repo. Szablony (nagłówek, stopka,
 pasek CTA) siedzą tutaj, żeby nie rozjechały się między stronami.
 
     python3 _src/build.py
@@ -14,7 +14,9 @@ from datetime import date
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
-OUT = os.path.normpath(os.path.join(HERE, "..", "www"))
+# Serwis leży w korzeniu repo, nie w podkatalogu — Vercel i GitHub Pages
+# serwują właśnie stamtąd, więc każdy inny układ kończy się 404.
+OUT = os.path.normpath(os.path.join(HERE, ".."))
 
 from data import (COMPANY, NAV, CLIENTS, JOINERY, SERVICES, PROCESS,
                   CATEGORIES, SPONSORSHIP, FUNDING, TIMELINE, STATS, FAQ)

@@ -6,27 +6,31 @@ terenie województwa lubelskiego od 1999 roku. Cała treść po polsku (`lang="p
 ## Layout
 
 ```
-_src/data.py     content — the single source of truth (company details, services,
-                 categories, clients, FAQ, funding, timeline)
-_src/build.py    generator — shared header/footer/CTA templates + the five pages
-www/             the site itself; this is what you deploy
-  assets/css/site.css   design tokens + components
-  assets/js/site.js     behaviour, vanilla, no dependencies
-  assets/img/           224 project photographs, hero set, client logos
-img/                    source image library (copied into www/assets/img)
+_src/data.py     treść — jedyne źródło prawdy (dane firmy, usługi, kategorie,
+                 klienci, FAQ, dofinansowanie, oś czasu)
+_src/build.py    generator — wspólny nagłówek/stopka/CTA + pięć podstron
+*.html           wygenerowane strony — LEŻĄ W KORZENIU, bo Vercel i GitHub Pages
+                 serwują właśnie stąd; podkatalog = 404
+assets/css/site.css   tokeny designu + komponenty
+assets/js/site.js     zachowanie, czysty JS, zero zależności
+assets/img/           224 zdjęcia realizacji, hero, logotypy klientów
+vercel.json           nagłówki cache + bezpieczeństwa
+.vercelignore         generator i materiały źródłowe nie idą na hosting
+.nojekyll             GitHub Pages ma nie przepuszczać repo przez Jekylla
+img/, tlo.png         materiały źródłowe, poza repo (patrz .gitignore)
 ```
 
-The `.html` files in `www/` are **generated**. Do not edit them by hand — change
-`_src/data.py` (content) or `_src/build.py` (markup) and rebuild:
+Pliki `.html` w korzeniu **są generowane** — nie edytuj ich ręcznie. Zmieniasz
+`_src/data.py` (treść) albo `_src/build.py` (szablony) i przebudowujesz:
 
 ```bash
 python3 _src/build.py
 ```
 
-Preview locally:
+Podgląd lokalny:
 
 ```bash
-cd www && python3 -m http.server 8000
+python3 -m http.server 8000
 ```
 
 ## Pages
@@ -68,6 +72,8 @@ cd www && python3 -m http.server 8000
 
 ## Deploy
 
-Any static host — the whole of `www/`, no build step server-side.
+Dowolny hosting statyczny, prosto z korzenia repo — bez build stepu po stronie
+serwera. Vercel: import repo, nic nie konfigurujesz. GitHub Pages: Settings →
+Pages → Source: `main` / `/ (root)`.
 Update `COMPANY["domain"]` in `_src/data.py` if the domain changes; canonical URLs,
 Open Graph tags and `sitemap.xml` all derive from it.

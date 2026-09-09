@@ -1,0 +1,12 @@
+# Generator nie jest potrzebny na hostingu — serwowane są gotowe pliki .html.
+_src/
+
+# Materiały źródłowe, z których wygenerowano assets/img.
+img/
+tlo.png
+tlo3pg
+logojaho.jpg
+cegla.jpg
+Bez nazwy.jpg
+
+README.md
