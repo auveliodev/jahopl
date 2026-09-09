@@ -75,5 +75,28 @@ python3 -m http.server 8000
 Dowolny hosting statyczny, prosto z korzenia repo — bez build stepu po stronie
 serwera. Vercel: import repo, nic nie konfigurujesz. GitHub Pages: Settings →
 Pages → Source: `main` / `/ (root)`.
+
+### vercel.json
+
+Schema Vercela jest ścisła (`additionalProperties: false`) — w obiektach
+`headers[]` wolno użyć wyłącznie `source`, `headers`, `has` i `missing`.
+Nie ma jak wstawić komentarza w samym pliku, więc uzasadnienie reguł jest tutaj:
+
+- `assets/img/**` → `max-age=31536000, immutable`. Ścieżki zdjęć są stabilne
+  i nigdy nie zmieniają treści — nowe ujęcie dostaje kolejny numer, nie nadpisuje
+  starego. Rok cache'u jest bezpieczny.
+- `assets/css/**` i `assets/js/**` → `max-age=0, must-revalidate`. Te pliki nie
+  mają hasha w nazwie, więc po przebudowie ścieżka zostaje ta sama. Bez
+  rewalidacji ludzie zobaczyliby stary arkusz albo starą wersję skryptu.
+- HTML zostawiamy na domyślnym zachowaniu Vercela (też rewalidacja).
+- Ostatnia reguła dokłada `X-Content-Type-Options`, `Referrer-Policy`
+  i `X-Frame-Options` na wszystko.
+
+Walidacja przed pushem, żeby nie wywalić builda na literówce:
+
+```bash
+curl -s -o /tmp/v.json https://openapi.vercel.sh/vercel.json
+python3 -c "import json,jsonschema;jsonschema.Draft7Validator(json.load(open('/tmp/v.json'))).validate(json.load(open('vercel.json')))"
+```
 Update `COMPANY["domain"]` in `_src/data.py` if the domain changes; canonical URLs,
 Open Graph tags and `sitemap.xml` all derive from it.

@@ -1,23 +1,20 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "framework": null,
   "headers": [
     {
-      "comment": "Zdjęcia i logotypy pod stałymi ścieżkami nigdy nie zmieniają treści — nowe ujęcie dostaje nowy numer. Można je cache'ować na rok.",
       "source": "/assets/img/(.*)",
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
       ]
     },
     {
-      "comment": "CSS i JS nie mają hasha w nazwie, więc po przebudowie ścieżka jest ta sama. Cache tylko z rewalidacją, inaczej ludzie zobaczą stary arkusz.",
-      "source": "/assets/(css|js)/(.*)",
+      "source": "/assets/css/(.*)",
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }
       ]
     },
     {
-      "source": "/(.*).html",
+      "source": "/assets/js/(.*)",
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }
       ]
