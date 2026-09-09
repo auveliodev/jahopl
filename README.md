@@ -76,6 +76,18 @@ Dowolny hosting statyczny, prosto z korzenia repo — bez build stepu po stronie
 serwera. Vercel: import repo, nic nie konfigurujesz. GitHub Pages: Settings →
 Pages → Source: `main` / `/ (root)`.
 
+### .vercelignore — uwaga na kotwiczenie
+
+To wzorce w stylu `.gitignore`, więc `img/` **bez wiodącego ukośnika** pasuje do
+katalogu o tej nazwie na każdym poziomie — w tym do `assets/img/`. Raz już to
+wycięło z deploya wszystkie 497 zdjęć (strona wstała, ale bez tła, bez galerii,
+a marquee pokazywał same teksty alternatywne). Każdy wzorzec musi mieć `/`
+z przodu. Weryfikacja przed pushem:
+
+```bash
+git ls-files -c -i -X .vercelignore    # ma NIE zawierać assets/img/
+```
+
 ### vercel.json
 
 Schema Vercela jest ścisła (`additionalProperties: false`) — w obiektach

@@ -1,12 +1,19 @@
+# UWAGA na składnię: to są wzorce w stylu .gitignore, więc "img/" bez ukośnika
+# na początku pasuje do katalogu o tej nazwie NA KAŻDYM POZIOMIE — czyli także
+# do assets/img/. Każdy wzorzec musi być zakotwiczony wiodącym "/", inaczej
+# wycina z deploya całą galerię.
+# Sprawdzenie, co realnie zostanie wykluczone:
+#     git ls-files -c -i -X .vercelignore
+
 # Generator nie jest potrzebny na hostingu — serwowane są gotowe pliki .html.
-_src/
+/_src/
 
 # Materiały źródłowe, z których wygenerowano assets/img.
-img/
-tlo.png
-tlo3pg
-logojaho.jpg
-cegla.jpg
-Bez nazwy.jpg
+/img/
+/tlo.png
+/tlo3pg
+/logojaho.jpg
+/cegla.jpg
+/Bez nazwy.jpg
 
-README.md
+/README.md
